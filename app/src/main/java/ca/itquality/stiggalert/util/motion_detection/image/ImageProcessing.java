@@ -1,5 +1,6 @@
 package ca.itquality.stiggalert.util.motion_detection.image;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -158,18 +159,21 @@ public abstract class ImageProcessing {
     /**
      * Convert an RGB image into a Bitmap.
      *
-     * @param rgb    Integer array representing an RGB image.
-     * @param width  Width of the image.
-     * @param height Height of the image.
+     * @param rgb         Integer array representing an RGB image.
+     * @param width       Width of the image.
+     * @param height      Height of the image.
+     * @param orientation
      * @return Bitmap of the RGB image.
      * @throws NullPointerException if RGB integer array is NULL.
      */
-    public static Bitmap rgbToBitmap(int[] rgb, int width, int height) {
+    public static Bitmap rgbToBitmap(int[] rgb, int width, int height, int orientation) {
         if (rgb == null) throw new NullPointerException();
 
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         bitmap.setPixels(rgb, 0, width, 0, 0, width, height);
         bitmap = scaleDown(bitmap, 1000, false);
+        bitmap = rotateBitmap(bitmap, orientation == Configuration.ORIENTATION_PORTRAIT ? 270
+                : 180);
         return bitmap;
     }
 
@@ -183,6 +187,13 @@ public abstract class ImageProcessing {
 
         return Bitmap.createScaledBitmap(realImage, width,
                 height, filter);
+    }
+
+    private static Bitmap rotateBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+                true);
     }
 
     /**

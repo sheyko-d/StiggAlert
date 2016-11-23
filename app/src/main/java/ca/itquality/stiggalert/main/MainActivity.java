@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -64,6 +63,7 @@ public class MainActivity extends SensorsActivity {
     private static boolean inPreview = false;
     private static long referenceTime = 0;
     private static IMotionDetection detector = null;
+    private static int orientation;
 
     /**
      * {@inheritDoc}
@@ -76,6 +76,12 @@ public class MainActivity extends SensorsActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         requestCameraPermission();
+
+        getOrientation();
+    }
+
+    private void getOrientation() {
+        orientation = getResources().getConfiguration().orientation;
     }
 
     private void requestCameraPermission() {
@@ -120,14 +126,6 @@ public class MainActivity extends SensorsActivity {
             // Using State based (aggregate map)
             detector = new AggregateLumaMotionDetection();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -325,21 +323,24 @@ public class MainActivity extends SensorsActivity {
                         Bitmap previous = null;
                         if (Preferences.SAVE_PREVIOUS && pre != null) {
                             if (Preferences.USE_RGB)
-                                previous = ImageProcessing.rgbToBitmap(pre, width, height);
+                                previous = ImageProcessing.rgbToBitmap(pre, width, height,
+                                        orientation);
                             else previous = ImageProcessing.lumaToGreyscale(pre, width, height);
                         }
 
                         Bitmap original = null;
                         if (Preferences.SAVE_ORIGINAL && org != null) {
                             if (Preferences.USE_RGB)
-                                original = ImageProcessing.rgbToBitmap(org, width, height);
+                                original = ImageProcessing.rgbToBitmap(org, width, height,
+                                        orientation);
                             else original = ImageProcessing.lumaToGreyscale(org, width, height);
                         }
 
                         Bitmap bitmap = null;
                         if (Preferences.SAVE_CHANGES) {
                             if (Preferences.USE_RGB)
-                                bitmap = ImageProcessing.rgbToBitmap(img, width, height);
+                                bitmap = ImageProcessing.rgbToBitmap(img, width, height,
+                                        orientation);
                             else bitmap = ImageProcessing.lumaToGreyscale(img, width, height);
                         }
 
