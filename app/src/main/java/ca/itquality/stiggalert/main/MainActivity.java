@@ -149,7 +149,12 @@ public class MainActivity extends SensorsActivity {
     public void onResume() {
         super.onResume();
 
-        camera = Camera.open();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            camera = Camera.open();
+        }
     }
 
     private PreviewCallback previewCallback = new PreviewCallback() {
