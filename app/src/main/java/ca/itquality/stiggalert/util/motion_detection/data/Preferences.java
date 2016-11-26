@@ -21,5 +21,5 @@ public abstract class Preferences {
     public static boolean SAVE_CHANGES = false;
 
     // Time between saving photos
-    public static int PICTURE_DELAY = 2000;
+    public static int PICTURE_DELAY = 10000;
 }

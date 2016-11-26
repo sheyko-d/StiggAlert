@@ -1,5 +1,6 @@
 package ca.itquality.stiggalert.api;
 
+import ca.itquality.stiggalert.main.data.User;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Multipart;
@@ -16,4 +17,15 @@ public interface ApiInterface {
     @POST("photo/upload_photo.php")
     Call<Void> uploadPhoto(@Part("android_id") String android_id,
                            @Part MultipartBody.Part photo);
+
+    /**
+     * User APIs.
+     */
+    @Multipart
+    @POST("user/register.php")
+    Call<Void> register(@Part("user") User user);
+
+    @Multipart
+    @POST("user/update_profile.php")
+    Call<User> updateProfile();
 }

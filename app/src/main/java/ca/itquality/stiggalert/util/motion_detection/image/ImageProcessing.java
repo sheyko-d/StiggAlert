@@ -171,22 +171,9 @@ public abstract class ImageProcessing {
 
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         bitmap.setPixels(rgb, 0, width, 0, 0, width, height);
-        bitmap = scaleDown(bitmap, 1000, false);
         bitmap = rotateBitmap(bitmap, orientation == Configuration.ORIENTATION_PORTRAIT ? 270
                 : 180);
         return bitmap;
-    }
-
-    private static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                    boolean filter) {
-        float ratio = Math.min(
-                maxImageSize / realImage.getWidth(),
-                maxImageSize / realImage.getHeight());
-        int width = Math.round(ratio * realImage.getWidth());
-        int height = Math.round(ratio * realImage.getHeight());
-
-        return Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
     }
 
     private static Bitmap rotateBitmap(Bitmap source, float angle) {

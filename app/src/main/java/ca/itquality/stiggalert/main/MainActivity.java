@@ -1,7 +1,6 @@
 package ca.itquality.stiggalert.main;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -75,8 +73,35 @@ public class MainActivity extends SensorsActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        requestCameraPermission();
+        register();
+    }
 
+    private void register() {
+        if (Util.getUser() == null) {
+            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+            Call<Void> call = apiService.register(Util.getDefaultUser());
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Util.setUser(Util.getDefaultUser());
+                        startSurveillance();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Util.Log("Server error: " + t.getMessage());
+                }
+            });
+        } else {
+            startSurveillance();
+        }
+    }
+
+    private void startSurveillance() {
+        requestCameraPermission();
         getOrientation();
     }
 
@@ -107,12 +132,17 @@ public class MainActivity extends SensorsActivity {
                 if (grantResults.length > 0 && grantResults[0]
                         == PackageManager.PERMISSION_GRANTED) {
                     initCamera();
+                    camera = Camera.open();
                 }
             }
         }
     }
 
     private void initCamera() {
+        if (camera == null) {
+            camera = Camera.open();
+        }
+
         SurfaceView preview = (SurfaceView) findViewById(R.id.preview);
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
@@ -134,12 +164,15 @@ public class MainActivity extends SensorsActivity {
     @Override
     public void onPause() {
         super.onPause();
-
-        camera.setPreviewCallback(null);
-        if (inPreview) camera.stopPreview();
-        inPreview = false;
-        camera.release();
-        camera = null;
+        try {
+            camera.setPreviewCallback(null);
+            if (inPreview) camera.stopPreview();
+            inPreview = false;
+            camera.release();
+            camera = null;
+        } catch (Exception e) {
+            // Camera wasn't started yet
+        }
     }
 
     /**
@@ -148,12 +181,10 @@ public class MainActivity extends SensorsActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        try {
             camera = Camera.open();
+        } catch (Exception e) {
+            // Camera wasn't started yet
         }
     }
 
@@ -400,15 +431,12 @@ public class MainActivity extends SensorsActivity {
             uploadPhotoToServer(photo.getAbsolutePath());
         }
 
-        @SuppressLint("HardwareIds")
         private void uploadPhotoToServer(String photoPath) {
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
             MultipartBody.Part photo = getPhoto(photoPath);
 
-            String androidId = Settings.Secure.getString(MyApplication.getContext()
-                    .getContentResolver(), Settings.Secure.ANDROID_ID);
-            Call<Void> call = apiService.uploadPhoto(androidId, photo);
+            Call<Void> call = apiService.uploadPhoto(Util.getUser().getAndroidId(), photo);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {

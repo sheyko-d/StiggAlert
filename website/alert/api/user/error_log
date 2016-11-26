@@ -1,0 +1,2 @@
+[25-Nov-2016 11:00:02 America/Denver] PHP Warning:  require_once(util/database.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/user/register.php on line 15
+[25-Nov-2016 11:00:02 America/Denver] PHP Fatal error:  require_once(): Failed opening required 'util/database.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/api/user/register.php on line 15
