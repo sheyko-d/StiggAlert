@@ -3,6 +3,8 @@ package ca.itquality.stiggalert.api;
 import ca.itquality.stiggalert.main.data.User;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -21,11 +23,16 @@ public interface ApiInterface {
     /**
      * User APIs.
      */
-    @Multipart
+    @FormUrlEncoded
     @POST("user/register.php")
-    Call<Void> register(@Part("user") User user);
+    Call<Void> register(@Field("user") User user);
 
-    @Multipart
-    @POST("user/update_profile.php")
-    Call<User> updateProfile();
+    @FormUrlEncoded
+    @POST("user/get_profile.php")
+    Call<User> getProfile(@Field("android_id") String android_id);
+
+    @FormUrlEncoded
+    @POST("user/update_token.php")
+    Call<Void> updateToken(@Field("android_id") String android_id,
+                           @Field("token") String token);
 }

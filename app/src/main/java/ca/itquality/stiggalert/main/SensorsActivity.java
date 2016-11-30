@@ -1,26 +1,18 @@
 package ca.itquality.stiggalert.main;
 
-import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import ca.itquality.stiggalert.util.motion_detection.data.GlobalData;
 
-
-/**
- * This class extends Activity and processes sensor data and location data. It
- * is used to detect when the phone is in motion, so we do not try to detect
- * motion.
- *
- * @author Justin Wetherell <phishman3579@gmail.com>
- */
-public class SensorsActivity extends Activity implements SensorEventListener {
+public class SensorsActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "SensorsActivity";
     private static final AtomicBoolean computing = new AtomicBoolean(false);

@@ -10,11 +10,14 @@ public class User {
     private String deviceName;
     @SerializedName("nickname")
     private String nickname;
+    @SerializedName("sensitivity")
+    private int sensitivity;
 
-    public User(String androidId, String deviceName, String nickname) {
+    public User(String androidId, String deviceName, String nickname, int sensitivity) {
         this.androidId = androidId;
         this.deviceName = deviceName;
         this.nickname = nickname;
+        this.sensitivity = sensitivity;
     }
 
     public String getAndroidId() {
@@ -27,5 +30,13 @@ public class User {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public int getSensitivity() {
+        return (30000-50)*(100-sensitivity)/100+50;
+    }
+
+    public void setSensitivity(int sensitivity) {
+        this.sensitivity = sensitivity;
     }
 }

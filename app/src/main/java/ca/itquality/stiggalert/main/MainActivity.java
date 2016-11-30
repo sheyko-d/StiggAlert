@@ -1,7 +1,11 @@
 package ca.itquality.stiggalert.main;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
@@ -13,20 +17,33 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ca.itquality.stiggalert.R;
 import ca.itquality.stiggalert.api.ApiClient;
 import ca.itquality.stiggalert.api.ApiInterface;
 import ca.itquality.stiggalert.app.MyApplication;
+import ca.itquality.stiggalert.main.data.User;
 import ca.itquality.stiggalert.util.Util;
 import ca.itquality.stiggalert.util.motion_detection.data.GlobalData;
 import ca.itquality.stiggalert.util.motion_detection.data.Preferences;
@@ -42,15 +59,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * This class extends Activity to handle a picture preview, process the frame
- * for motion, and then save the file to the SD card.
- *
- * @author Justin Wetherell <phishman3579@gmail.com>
- */
 @SuppressWarnings("deprecation")
 public class MainActivity extends SensorsActivity {
+
+    public static final String SENSITIVITY_UPDATED_INTENT
+            = "ca.itquality.stiggalert.SENSITIVITY_UPDATED";
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.main_preview_layout)
+    ViewGroup mPreviewLayout;
+    @Bind(R.id.main_surveillance_btn)
+    Button mSurveillanceBtn;
+    @Bind(R.id.main_alert_img)
+    ImageView mAlertImg;
 
     private static final String TAG = "StiggAlertDebug";
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
@@ -59,9 +81,11 @@ public class MainActivity extends SensorsActivity {
     private static SurfaceHolder previewHolder = null;
     private static Camera camera = null;
     private static boolean inPreview = false;
-    private static long referenceTime = 0;
+    private static long referenceTime;
     private static IMotionDetection detector = null;
     private static int orientation;
+    private SurfaceView mPreview;
+    private boolean mSurveillanceActive = false;
 
     /**
      * {@inheritDoc}
@@ -70,10 +94,89 @@ public class MainActivity extends SensorsActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        initActionBar();
         register();
+        refreshToken();
+        setProfileChangeListener();
+    }
+
+    private void setProfileChangeListener() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SENSITIVITY_UPDATED_INTENT);
+        registerReceiver(mProfileChangeReceiver, intentFilter);
+    }
+
+    private BroadcastReceiver mProfileChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(SENSITIVITY_UPDATED_INTENT)){
+                Util.Log("sensitivity update: "+Util.getUser().getSensitivity());
+                //noinspection ConstantConditions
+                detector = new RgbMotionDetection(Util.getUser().getSensitivity());
+            }
+        }
+    };
+
+    private void updateTitle() {
+        User user = Util.getUser();
+        if (user != null) {
+            setTitle(TextUtils.isEmpty(user.getNickname()) ? getString(R.string.app_name)
+                    : user.getNickname());
+        } else {
+            setTitle(R.string.app_name);
+        }
+    }
+
+    private void updateProfile() {
+        Util.Log("updateProfile");
+        User user = Util.getUser();
+        if (user != null) {
+            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+            Call<User> call = apiService.getProfile(user.getAndroidId());
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Util.setUser(response.body());
+                        updateTitle();
+                        //noinspection ConstantConditions
+                        detector = new RgbMotionDetection(Util.getUser().getSensitivity());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Util.Log("Server error: " + t.getMessage());
+                }
+            });
+        }
+    }
+
+    private void refreshToken() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        User user = Util.getUser();
+        if (user != null) {
+            Call<Void> call = apiService.updateToken(user.getAndroidId(),
+                    FirebaseInstanceId.getInstance().getToken());
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Util.Log("Server error: " + t.getMessage());
+                }
+            });
+        }
+    }
+
+    private void initActionBar() {
+        setSupportActionBar(mToolbar);
     }
 
     private void register() {
@@ -86,7 +189,7 @@ public class MainActivity extends SensorsActivity {
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Util.setUser(Util.getDefaultUser());
-                        startSurveillance();
+                        startCamera();
                     }
                 }
 
@@ -95,12 +198,14 @@ public class MainActivity extends SensorsActivity {
                     Util.Log("Server error: " + t.getMessage());
                 }
             });
-        } else {
-            startSurveillance();
         }
     }
 
-    private void startSurveillance() {
+    private void startCamera() {
+        if (Util.getUser() == null) return;
+
+        mSurveillanceActive = true;
+        updateSurveillanceUiState();
         requestCameraPermission();
         getOrientation();
     }
@@ -139,17 +244,24 @@ public class MainActivity extends SensorsActivity {
     }
 
     private void initCamera() {
-        if (camera == null) {
+        referenceTime = System.currentTimeMillis();
+
+        try {
             camera = Camera.open();
+        } catch (Exception e) {
+            Util.Log("Can't open camera: " + e);
         }
 
-        SurfaceView preview = (SurfaceView) findViewById(R.id.preview);
-        previewHolder = preview.getHolder();
+        mPreview = new SurfaceView(this);
+        mPreview.setKeepScreenOn(true);
+        mPreviewLayout.addView(mPreview);
+        previewHolder = mPreview.getHolder();
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         if (Preferences.USE_RGB) {
-            detector = new RgbMotionDetection();
+            //noinspection ConstantConditions
+            detector = new RgbMotionDetection(Util.getUser().getSensitivity());
         } else if (Preferences.USE_LUMA) {
             detector = new LumaMotionDetection();
         } else {
@@ -164,7 +276,16 @@ public class MainActivity extends SensorsActivity {
     @Override
     public void onPause() {
         super.onPause();
+        stopCamera();
+        unregisterReceiver(mProfileChangeReceiver);
+    }
+
+    private void stopCamera() {
         try {
+            mSurveillanceActive = false;
+            updateSurveillanceUiState();
+            mAlertImg.setVisibility(View.GONE);
+            mPreviewLayout.removeView(mPreview);
             camera.setPreviewCallback(null);
             if (inPreview) camera.stopPreview();
             inPreview = false;
@@ -181,11 +302,9 @@ public class MainActivity extends SensorsActivity {
     @Override
     public void onResume() {
         super.onResume();
-        try {
-            camera = Camera.open();
-        } catch (Exception e) {
-            // Camera wasn't started yet
-        }
+        startCamera();
+        updateProfile();
+        updateTitle();
     }
 
     private PreviewCallback previewCallback = new PreviewCallback() {
@@ -200,7 +319,8 @@ public class MainActivity extends SensorsActivity {
             if (size == null) return;
 
             if (!GlobalData.isPhoneInMotion()) {
-                DetectionThread thread = new DetectionThread(data, size.width, size.height);
+                DetectionThread thread = new DetectionThread(data, size.width, size.height,
+                        mAlertImg, MainActivity.this);
                 thread.start();
             }
         }
@@ -306,16 +426,34 @@ public class MainActivity extends SensorsActivity {
         return result;
     }
 
+    public void onSurveillanceButtonClicked(View view) {
+        if (mSurveillanceActive) {
+            stopCamera();
+        } else {
+            startCamera();
+        }
+        updateSurveillanceUiState();
+    }
+
+    private void updateSurveillanceUiState() {
+        mSurveillanceBtn.setText(getString(mSurveillanceActive ? R.string.mail_stop
+                : R.string.mail_start));
+    }
+
     private static final class DetectionThread extends Thread {
 
         private byte[] data;
         private int width;
         private int height;
+        private ImageView alertImg;
+        private Activity activity;
 
-        DetectionThread(byte[] data, int width, int height) {
+        DetectionThread(byte[] data, int width, int height, ImageView alertImg, Activity activity) {
             this.data = data;
             this.width = width;
             this.height = height;
+            this.alertImg = alertImg;
+            this.activity = activity;
         }
 
         /**
@@ -347,6 +485,8 @@ public class MainActivity extends SensorsActivity {
                 if (Preferences.SAVE_ORIGINAL && img != null) org = img.clone();
 
                 if (img != null && detector.detect(img, width, height)) {
+                    setAlertImgVisible(true);
+
                     // The delay is necessary to avoid taking a picture while in
                     // the
                     // middle of taking another. This problem can causes some
@@ -383,13 +523,12 @@ public class MainActivity extends SensorsActivity {
                         if (GlobalData.isPhoneInMotion()) return;
 
                         Looper.prepare();
-                        Util.Log("Take picture");
                         new SavePhotoTask().execute(previous, original, bitmap);
                     } else {
                         if (GlobalData.isPhoneInMotion()) return;
-
-                        Log.i(TAG, "Not taking picture because not enough time has passed since the creation of the Surface");
                     }
+                } else {
+                    setAlertImgVisible(false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -399,6 +538,15 @@ public class MainActivity extends SensorsActivity {
             // Log.d(TAG, "END PROCESSING...");
 
             processing.set(false);
+        }
+
+        private void setAlertImgVisible(final boolean visible) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    alertImg.setVisibility(visible ? View.VISIBLE : View.GONE);
+                }
+            });
         }
     }
 
@@ -459,5 +607,12 @@ public class MainActivity extends SensorsActivity {
             return MultipartBody.Part.createFormData("photo", file.getName(),
                     requestFile);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
     }
 }

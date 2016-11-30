@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Stigg Alert</string>
+    <string name="mail_stop">Stop surveillance</string>
+    <string name="mail_start">Start surveillance</string>
+    <string name="settings">Settings</string>
 </resources>

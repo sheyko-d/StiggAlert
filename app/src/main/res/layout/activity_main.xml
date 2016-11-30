@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SurfaceView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/preview"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-</SurfaceView>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/main_preview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/action_bar_gradient" />
+
+    <ImageView
+        android:id="@+id/main_alert_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/motion_detected"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <Button
+        android:id="@+id/main_surveillance_btn"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:onClick="onSurveillanceButtonClicked"
+        android:text="@string/mail_stop"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</FrameLayout>

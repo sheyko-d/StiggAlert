@@ -32,7 +32,7 @@ public class Util {
         String androidId = Settings.Secure.getString(MyApplication.getContext()
                 .getContentResolver(), Settings.Secure.ANDROID_ID);
         String deviceName = Build.MODEL;
-        return new User(androidId, deviceName, null);
+        return new User(androidId, deviceName, null, 50);
     }
 
     public static User getUser() {

@@ -40,9 +40,10 @@ public class ImageSurfaceView extends SurfaceView implements SurfaceHolder.Callb
                 @Override
                 public void onPreviewFrame(byte[] bytes, Camera camera) {
                     int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(bytes, 100, 100);
-                    IMotionDetection detector = new RgbMotionDetection();
-                    boolean detected = detector.detect(rgb, 100, 100);
-                    Util.Log("Detected: " + detected);
+                    //noinspection ConstantConditions
+                    IMotionDetection detector = new RgbMotionDetection(Util.getUser()
+                            .getSensitivity());
+                    detector.detect(rgb, 100, 100);
                 }
             });
             mCamera.startPreview();

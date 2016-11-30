@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "945880098597",
+    "firebase_url": "https://stigg-alert.firebaseio.com",
+    "project_id": "stigg-alert",
+    "storage_bucket": "stigg-alert.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945880098597:android:3182a6609e7e4e5e",
+        "android_client_info": {
+          "package_name": "ca.itquality.stiggalert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945880098597-b17u2qdat6kbov1ucg90th14766ah1bb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.itquality.stiggalert",
+            "certificate_hash": "719FF41A002C408792582B78C748611BBDAF40E5"
+          }
+        },
+        {
+          "client_id": "945880098597-mofn4p2gnot17t6p7n66fe6jlvgo3tui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjy_QmqOWSH5aoXBgiHh9jj_tatS9oLGs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945880098597-mofn4p2gnot17t6p7n66fe6jlvgo3tui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
