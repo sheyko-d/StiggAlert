@@ -1,0 +1,41 @@
+[21-Nov-2016 07:48:01 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/FtPvMWB6vvkKcyfjfimP.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:48:01 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phphs1skV' to '../../../uploads/FtPvMWB6vvkKcyfjfimP.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:48:02 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/NjghZVenxLddf3I2Zk9v.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:48:02 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpGAHMfY' to '../../../uploads/NjghZVenxLddf3I2Zk9v.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:10 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/Ptf12vlhNH6B0mS0h7oP.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:10 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpiTvJM0' to '../../../uploads/Ptf12vlhNH6B0mS0h7oP.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:11 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/TB29EKbE4k9UOpWQUh7I.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:11 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpZhp1H6' to '../../../uploads/TB29EKbE4k9UOpWQUh7I.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:48 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/YekZBdZTknIeZKnEuyiz.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:48 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpYpaWdQ' to '../../../uploads/YekZBdZTknIeZKnEuyiz.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:49 America/Denver] PHP Warning:  move_uploaded_file(../../../uploads/SrtHRpxMHFuFTPFu2Fnn.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 07:49:49 America/Denver] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php0tMNQA' to '../../../uploads/SrtHRpxMHFuFTPFu2Fnn.jpg' in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 16
+[21-Nov-2016 10:56:50 America/Denver] PHP Warning:  require_once(util/database.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 12
+[21-Nov-2016 10:56:50 America/Denver] PHP Fatal error:  require_once(): Failed opening required 'util/database.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 12
+[24-Nov-2016 06:08:43 America/Denver] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:08:43 America/Denver] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:08:43 America/Denver] PHP Fatal error:  require(): Failed opening required 'config.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:10:46 America/Denver] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:10:46 America/Denver] PHP Warning:  require(config.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:10:46 America/Denver] PHP Fatal error:  require(): Failed opening required 'config.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 47
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  imagecreatefromjpeg(uploads/BWAVfF2Ig1Q5GPJA3M0o.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 48
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  imagesx() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 55
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  imagesy() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 56
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  Division by zero in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 59
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  imagecreatetruecolor(): Invalid image dimensions in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 61
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  imagecopyresized() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 63
+[24-Nov-2016 06:12:24 America/Denver] PHP Warning:  mkdir(): No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 66
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  imagecreatefromjpeg(uploads/lcmmv2VGDEAfBaaQPdz6.jpg): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 48
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  imagesx() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 55
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  imagesy() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 56
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  Division by zero in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 59
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  imagecreatetruecolor(): Invalid image dimensions in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 61
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  imagecopyresized() expects parameter 1 to be resource, boolean given in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 63
+[24-Nov-2016 06:13:24 America/Denver] PHP Warning:  mkdir(): No such file or directory in /home/stiggca/public_html/alert/api/photo/upload_photo.php on line 66
+[27-Nov-2016 07:29:25 America/Denver] PHP Warning:  require_once(util/database.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 11
+[27-Nov-2016 07:29:25 America/Denver] PHP Fatal error:  require_once(): Failed opening required 'util/database.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 11
+[27-Nov-2016 07:47:57 MST] PHP Warning:  unlink(): http does not allow unlinking in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 57
+[27-Nov-2016 07:47:57 MST] PHP Warning:  unlink(): http does not allow unlinking in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 58
+[27-Nov-2016 07:49:59 America/Denver] PHP Parse error:  syntax error, unexpected ';' in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 56
+[27-Nov-2016 07:55:48 MST] PHP Warning:  unlink(../../uploads/VUHEFqn3f0S7iVuY4gjJ.jpg): No such file or directory in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 60
+[27-Nov-2016 07:55:48 MST] PHP Warning:  unlink(../../uploads/thumbs/VUHEFqn3f0S7iVuY4gjJ.jpg): No such file or directory in /home/stiggca/public_html/alert/api/photo/delete_photos.php on line 61

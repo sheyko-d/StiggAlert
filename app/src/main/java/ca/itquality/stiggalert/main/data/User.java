@@ -39,4 +39,8 @@ public class User {
     public void setSensitivity(int sensitivity) {
         this.sensitivity = sensitivity;
     }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

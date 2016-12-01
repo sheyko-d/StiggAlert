@@ -35,4 +35,9 @@ public interface ApiInterface {
     @POST("user/update_token.php")
     Call<Void> updateToken(@Field("android_id") String android_id,
                            @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("user/update_surveillance.php")
+    Call<Void> updateSurveillance(@Field("android_id") String android_id,
+                                  @Field("enabled") boolean enabled);
 }

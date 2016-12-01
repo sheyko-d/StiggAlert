@@ -64,6 +64,11 @@ public class MainActivity extends SensorsActivity {
 
     public static final String SENSITIVITY_UPDATED_INTENT
             = "ca.itquality.stiggalert.SENSITIVITY_UPDATED";
+    public static final String NICKNAME_UPDATED_INTENT
+            = "ca.itquality.stiggalert.NICKNAME_UPDATED";
+    public static final String SURVEILLANCE_TOGGLED_INTENT
+            = "ca.itquality.stiggalert.SURVEILLANCE_TOGGLED";
+    public static final String EXTRA_ENABLED = "Enabled";
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -105,16 +110,25 @@ public class MainActivity extends SensorsActivity {
     private void setProfileChangeListener() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SENSITIVITY_UPDATED_INTENT);
+        intentFilter.addAction(NICKNAME_UPDATED_INTENT);
+        intentFilter.addAction(SURVEILLANCE_TOGGLED_INTENT);
         registerReceiver(mProfileChangeReceiver, intentFilter);
     }
 
     private BroadcastReceiver mProfileChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(SENSITIVITY_UPDATED_INTENT)){
-                Util.Log("sensitivity update: "+Util.getUser().getSensitivity());
+            if (intent.getAction().equals(SENSITIVITY_UPDATED_INTENT)) {
                 //noinspection ConstantConditions
                 detector = new RgbMotionDetection(Util.getUser().getSensitivity());
+            } else if (intent.getAction().equals(NICKNAME_UPDATED_INTENT)) {
+                updateTitle();
+            } else if (intent.getAction().equals(SURVEILLANCE_TOGGLED_INTENT)){
+                if (intent.getStringExtra(EXTRA_ENABLED).equals("true")) {
+                    stopCamera();
+                } else {
+                    startCamera();
+                }
             }
         }
     };
@@ -130,7 +144,6 @@ public class MainActivity extends SensorsActivity {
     }
 
     private void updateProfile() {
-        Util.Log("updateProfile");
         User user = Util.getUser();
         if (user != null) {
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -162,6 +175,26 @@ public class MainActivity extends SensorsActivity {
         if (user != null) {
             Call<Void> call = apiService.updateToken(user.getAndroidId(),
                     FirebaseInstanceId.getInstance().getToken());
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Util.Log("Server error: " + t.getMessage());
+                }
+            });
+        }
+    }
+
+    private void updateSurveillanceServerState() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        User user = Util.getUser();
+        if (user != null) {
+            Call<Void> call = apiService.updateSurveillance(user.getAndroidId(),
+                    mSurveillanceActive);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
@@ -438,6 +471,7 @@ public class MainActivity extends SensorsActivity {
     private void updateSurveillanceUiState() {
         mSurveillanceBtn.setText(getString(mSurveillanceActive ? R.string.mail_stop
                 : R.string.mail_start));
+        updateSurveillanceServerState();
     }
 
     private static final class DetectionThread extends Thread {

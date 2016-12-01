@@ -1,0 +1,83 @@
+[21-Nov-2016 13:05:50 America/Denver] PHP Warning:  require_once(../util/database.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/index.php on line 29
+[21-Nov-2016 13:05:50 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../util/database.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/index.php on line 29
+[21-Nov-2016 13:05:53 America/Denver] PHP Warning:  require_once(../util/database.php): failed to open stream: No such file or directory in /home/stiggca/public_html/alert/index.php on line 29
+[21-Nov-2016 13:05:53 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../util/database.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/stiggca/public_html/alert/index.php on line 29
+[22-Nov-2016 04:17:52 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'DateTime::__construct(): Failed to parse time string (@2016-11-22 11:14:59) at position 8 (-): Double timezone specification' in /home/stiggca/public_html/alert/index.php:86
+Stack trace:
+#0 /home/stiggca/public_html/alert/index.php(86): DateTime->__construct('@2016-11-22 11:...')
+#1 {main}
+  thrown in /home/stiggca/public_html/alert/index.php on line 86
+[22-Nov-2016 05:26:39 America/Denver] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/stiggca/public_html/alert/index.php on line 102
+[22-Nov-2016 06:01:28 America/Denver] PHP Fatal error:  Function name must be a string in /home/stiggca/public_html/alert/index.php on line 4
+[22-Nov-2016 09:55:35 America/Denver] PHP Parse error:  syntax error, unexpected ';' in /home/stiggca/public_html/alert/index.php on line 136
+[22-Nov-2016 09:57:08 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'DateTime::__construct(): Failed to parse time string (1479851419) at position 8 (1): Unexpected character' in /home/stiggca/public_html/alert/index.php:139
+Stack trace:
+#0 /home/stiggca/public_html/alert/index.php(139): DateTime->__construct('1479851419', Object(DateTimeZone))
+#1 {main}
+  thrown in /home/stiggca/public_html/alert/index.php on line 139
+[22-Nov-2016 10:05:31 America/Denver] PHP Fatal error:  Uncaught exception 'Exception' with message 'DateTime::__construct(): Failed to parse time string (1479851419) at position 8 (1): Unexpected character' in /home/stiggca/public_html/alert/index.php:158
+Stack trace:
+#0 /home/stiggca/public_html/alert/index.php(158): DateTime->__construct('1479851419', Object(DateTimeZone))
+#1 {main}
+  thrown in /home/stiggca/public_html/alert/index.php on line 158
+[22-Nov-2016 10:07:37 America/Denver] PHP Warning:  date() expects parameter 2 to be long, string given in /home/stiggca/public_html/alert/index.php on line 5
+[22-Nov-2016 10:08:45 America/Denver] PHP Parse error:  syntax error, unexpected '<' in /home/stiggca/public_html/alert/index.php on line 75
+[22-Nov-2016 10:08:58 America/Denver] PHP Parse error:  syntax error, unexpected 'or' (T_LOGICAL_OR) in /home/stiggca/public_html/alert/index.php on line 86
+[22-Nov-2016 11:37:49 America/Denver] PHP Parse error:  syntax error, unexpected '{' in /home/stiggca/public_html/alert/index.php on line 139
+[23-Nov-2016 13:48:27 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:2) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[23-Nov-2016 13:48:27 America/Denver] PHP Fatal error:  Call to a member function makeQuery() on null in /home/stiggca/public_html/alert/view.php on line 144
+[24-Nov-2016 09:16:46 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:18:56 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:19:01 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:45:09 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:45:26 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:45:32 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:46:05 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:46:44 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:48:37 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:49:28 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:52:17 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:54:03 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:54:51 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:55:14 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:55:40 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:56:47 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:57:15 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:58:16 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:58:53 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 09:59:23 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:00:01 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:04:42 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:04:50 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:05:45 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:06:59 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:07:09 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:07:41 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:07:51 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:09:09 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:09:51 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:09:56 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:10:54 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:11:27 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:11:58 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:12:31 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:12:54 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:13:22 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:14:38 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:15:04 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:15:11 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:16:11 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:16:18 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:16:27 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:16:46 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:17:16 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[24-Nov-2016 10:17:25 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:264) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[25-Nov-2016 03:06:40 America/Denver] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home/stiggca/public_html/alert/view.php:249) in /home/stiggca/public_html/alert/validate_login.php on line 2
+[25-Nov-2016 10:21:09 America/Denver] PHP Fatal error:  Cannot redeclare class DBConnect in /home/stiggca/public_html/api/util/database.php on line 3
+[25-Nov-2016 10:29:34 America/Denver] PHP Parse error:  syntax error, unexpected ')' in /home/stiggca/public_html/alert/index.php on line 178
+[26-Nov-2016 06:15:23 America/Denver] PHP Parse error:  syntax error, unexpected ')' in /home/stiggca/public_html/alert/view.php on line 147
+[27-Nov-2016 12:17:10 Europe/Warsaw] PHP Fatal error:  Uncaught exception 'Exception' with message 'DateTime::__construct(): Failed to parse time string (1480242859) at position 7 (8): Unexpected character' in /home/stiggca/public_html/alert/index.php:179
+Stack trace:
+#0 /home/stiggca/public_html/alert/index.php(179): DateTime->__construct('1480242859')
+#1 {main}
+  thrown in /home/stiggca/public_html/alert/index.php on line 179

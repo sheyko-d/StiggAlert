@@ -17,8 +17,7 @@ public class RgbMotionDetection implements IMotionDetection {
 
     // Specific settings
     private static final int mPixelThreshold = 50; // Difference in pixel (RGB)
-    private static int mThreshold; // Number of different pixels
-                                                 // (RGB)
+    private static int mThreshold; // Number of different pixels (RGB)
 
     private static int[] mPrevious = null;
     private static int mPreviousWidth = 0;
