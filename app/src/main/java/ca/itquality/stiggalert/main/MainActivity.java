@@ -17,11 +17,13 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -44,6 +46,7 @@ import ca.itquality.stiggalert.api.ApiClient;
 import ca.itquality.stiggalert.api.ApiInterface;
 import ca.itquality.stiggalert.app.MyApplication;
 import ca.itquality.stiggalert.main.data.User;
+import ca.itquality.stiggalert.settings.SettingsActivity;
 import ca.itquality.stiggalert.util.Util;
 import ca.itquality.stiggalert.util.motion_detection.data.GlobalData;
 import ca.itquality.stiggalert.util.motion_detection.data.Preferences;
@@ -58,6 +61,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends SensorsActivity {
@@ -79,7 +83,6 @@ public class MainActivity extends SensorsActivity {
     @Bind(R.id.main_alert_img)
     ImageView mAlertImg;
 
-    private static final String TAG = "StiggAlertDebug";
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     private static volatile AtomicBoolean processing = new AtomicBoolean(false);
 
@@ -123,7 +126,7 @@ public class MainActivity extends SensorsActivity {
                 detector = new RgbMotionDetection(Util.getUser().getSensitivity());
             } else if (intent.getAction().equals(NICKNAME_UPDATED_INTENT)) {
                 updateTitle();
-            } else if (intent.getAction().equals(SURVEILLANCE_TOGGLED_INTENT)){
+            } else if (intent.getAction().equals(SURVEILLANCE_TOGGLED_INTENT)) {
                 if (intent.getStringExtra(EXTRA_ENABLED).equals("true")) {
                     stopCamera();
                 } else {
@@ -310,7 +313,11 @@ public class MainActivity extends SensorsActivity {
     public void onPause() {
         super.onPause();
         stopCamera();
-        unregisterReceiver(mProfileChangeReceiver);
+        try {
+            unregisterReceiver(mProfileChangeReceiver);
+        } catch (Exception e) {
+            // Receiver not registered
+        }
     }
 
     private void stopCamera() {
@@ -648,5 +655,42 @@ public class MainActivity extends SensorsActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_settings) {
+            startActivityForResult(new Intent(this, SettingsActivity.class), 1);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        updateSensitivityOnServer();
+    }
+
+    private void updateSensitivityOnServer() {
+        User user = Util.getUser();
+        if (user != null) {
+            user.setSensitivity(PreferenceManager.getDefaultSharedPreferences(MyApplication
+                    .getContext()).getInt("setting_sensitivity", 0));
+            Util.setUser(user);
+
+            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+            Call<Void> call = apiService.updateSensitivity(user.getAndroidId(),
+                    user.getSensitivityPercent());
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Util.Log("Updated sensitivity");
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Util.Log("Server error: " + t.getMessage());
+                }
+            });
+        }
     }
 }

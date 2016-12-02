@@ -3,4 +3,13 @@
     <string name="mail_stop">Stop surveillance</string>
     <string name="mail_start">Start surveillance</string>
     <string name="settings">Settings</string>
+    <string name="settings_sensitivity">Camera sensitivity</string>
+    <string name="settings_sensitivity_summary">Higher setting will detect more movement.</string>
+    <string name="settings_nickname">Nickname</string>
+    <string name="settings_group_surveillance">Surveillance</string>
+    <string name="settings_group_device">Device</string>
+    <string name="settings_remote_control">Remote control</string>
+    <string name="settings_nickname_empty">No nickname.</string>
+    <string name="settings_remote_control_summary">Allow to change camera parameters remotely.
+    </string>
 </resources>

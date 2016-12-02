@@ -36,6 +36,10 @@ public class User {
         return (30000-50)*(100-sensitivity)/100+50;
     }
 
+    public int getSensitivityPercent() {
+        return sensitivity;
+    }
+
     public void setSensitivity(int sensitivity) {
         this.sensitivity = sensitivity;
     }

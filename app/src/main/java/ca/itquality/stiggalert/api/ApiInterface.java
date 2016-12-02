@@ -40,4 +40,14 @@ public interface ApiInterface {
     @POST("user/update_surveillance.php")
     Call<Void> updateSurveillance(@Field("android_id") String android_id,
                                   @Field("enabled") boolean enabled);
+
+    @FormUrlEncoded
+    @POST("user/update_nickname.php")
+    Call<Void> updateNickname(@Field("android_id") String android_id,
+                              @Field("nickname") String nickname);
+
+    @FormUrlEncoded
+    @POST("user/update_sensitivity.php")
+    Call<Void> updateSensitivity(@Field("android_id") String android_id,
+                                 @Field("sensitivity") int sensitivity);
 }

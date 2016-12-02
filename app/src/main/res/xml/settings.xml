@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/settings_group_device">
+        <EditTextPreference
+            android:key="setting_nickname"
+            android:summary="@string/settings_nickname_empty"
+            android:title="@string/settings_nickname" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_group_surveillance">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="setting_remote_control"
+            android:title="@string/settings_remote_control"
+            android:summary="@string/settings_remote_control_summary" />
+
+        <com.pavelsikun.seekbarpreference.SeekBarPreference
+            android:defaultValue="50"
+            android:key="setting_sensitivity"
+            android:summary="@string/settings_sensitivity_summary"
+            android:title="@string/settings_sensitivity"
+            app:msbp_dialogEnabled="false"
+            app:msbp_interval="1"
+            app:msbp_maxValue="100"
+            app:msbp_measurementUnit="%"
+            app:msbp_minValue="0" />
+    </PreferenceCategory>
+</PreferenceScreen>

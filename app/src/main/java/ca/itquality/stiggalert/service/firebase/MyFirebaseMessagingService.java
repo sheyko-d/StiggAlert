@@ -1,10 +1,12 @@
 package ca.itquality.stiggalert.service.firebase;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import ca.itquality.stiggalert.app.MyApplication;
 import ca.itquality.stiggalert.main.MainActivity;
 import ca.itquality.stiggalert.main.data.User;
 import ca.itquality.stiggalert.util.Util;
@@ -14,6 +16,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        if (!PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext())
+                .getBoolean("setting_remote_control", true)) {
+            return;
+        }
+
         try {
             Util.Log("received message");
             if (remoteMessage.getData().get("type").equals("sensitivity")) {
